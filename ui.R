@@ -35,7 +35,7 @@ shinyUI(fluidPage(
                  "Trend US magazine data."),
                p("1. Select the transmission type of the car to predict"),
                p("2. Select the weight of the car to predict"),
-               p("2. Click on the submit button"),
+               p("3. Click on the submit button"),
                br(),
                
                # Print inputs

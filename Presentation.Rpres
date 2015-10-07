@@ -1,0 +1,62 @@
+Shiny App to Predict MPG for Cars
+========================================================
+author: Tenchunky
+date: 7th October 2015
+
+'mtcars' Data Set
+========================================================
+
+The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973-74 models). In particular, the below variables are of interest:
+
+- mpg: Miles/(US) gallon
+- am: Transmission (0 = automatic, 1 = manual)
+- wt: Weight (lb/1000)
+
+Linear Regression
+========================================================
+
+A linear regression is performed for mpg ~ am + wt to allow us to use transmission type and vehicle weight to predict the fuel economy of vehicles. The predict function can then be used to predict the expected fuel economy in mpg.
+
+```{r, echo=FALSE}
+data(mtcars)
+mtcars$am <- as.factor(mtcars$am)
+```
+
+```{r}
+fit <- lm(mpg ~ am + wt, mtcars)
+```
+
+```{r, echo=FALSE}
+summary(fit)
+```
+
+The model (mpg ~ am + wt) has a residual standard error of 3.098 on 29 degrees of freedom. It has an adjusted R-squared of 0.7528 which indicates that about 75% of variation is explained by the regression model. However, it should be noted that only weight (wt) is significant at 0.05 significance level.
+
+
+Instructions
+========================================================
+
+This application predicts the miles per gallon (MPG) of the selected car based on its transmission type and weight by fitting a linear regression on the 1974 Motor Trend US magazine data. To begin:
+
+1. Select the transmission type of the car to predict
+2. Select the weight of the car to predict
+3. Click on the submit button
+4. View the results on the right
+
+
+Prediction Results
+========================================================
+The inputs and the predicted mpg are indicated on the right main panel. From the plot, the selected weight (wt) is indicated as a vertical line and the predicted fuel economy (mpg) is indicated as a horizontal line.
+
+```{r, echo=FALSE}
+library(ggplot2)
+g <- ggplot(mtcars, aes(x=wt, y=mpg, color=am)) + 
+               scale_color_discrete(name="Transmission",breaks=c(0, 1), labels=c("Automatic", "Manual")) +
+               geom_point(size = 3) +
+               geom_hline(yintercept = 18.59) +
+               geom_vline(xintercept = 3.5) +
+               labs(x ='Weight (Lb/1000)') +
+               labs(y = 'Miles per Gallon') +
+               labs(title ='Miles per Gallon (MPG) against Weight(Lb/1000)')
+          print(g)
+```
